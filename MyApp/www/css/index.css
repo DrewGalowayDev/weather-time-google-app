@@ -1,0 +1,133 @@
+/* 
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.
+ * See the NOTICE file distributed with this work for additional information regarding copyright.
+ * The ASF licenses this file to you under the Apache License, Version 2.0.
+ */
+
+ * {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    color: #848f9c;
+    font-size: 16px;
+}
+
+/* Main container styled as a modern card */
+.app {
+    width: 90%;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header style */
+.app h1 {
+    font-size: 1.8em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Google Search Form */
+#google-search form {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#google-search input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 1em;
+}
+
+#google-search input[type="submit"] {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-left: none;
+    background: #4285f4;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#google-search input[type="submit"]:hover {
+    background: #3367d6;
+}
+
+/* Clock and Weather Sections */
+#clock, #weather {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#clock h2, #weather h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+#clock p, #weather p {
+    font-size: 1em;
+    color: #666;
+}
+
+/* Responsive adjustments for larger screens */
+@media (min-width: 768px) {
+    .app {
+        padding: 30px;
+    }
+    #google-search input[type="text"],
+    #google-search input[type="submit"] {
+        font-size: 1.1em;
+    }
+    #clock h2, #weather h2 {
+        font-size: 1.4em;
+    }
+    #clock p, #weather p {
+        font-size: 1.1em;
+    }
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #2c3e50, #4c5c68);
+        color: #ddd;
+    }
+    .app {
+        background:linear-gradient(135deg,teal, rgb(228, 204, 43));
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+    #google-search input[type="text"] {
+        background: #555;
+        border: 1px solid #777;
+        color: #ddd;
+    }
+    #google-search input[type="submit"] {
+        background: #4285f4;
+        border: 1px solid #777;
+    }
+    #google-search input[type="submit"]:hover {
+        background: #3367d6;
+    }
+    #clock p, #weather p {
+        color: #ccc;
+    }
+}

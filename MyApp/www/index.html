@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. 
+    See the NOTICE file distributed with this work for additional information regarding copyright.
+    The ASF licenses this file to you under the Apache License, Version 2.0.
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!--
+            Customize this policy to fit your own app's needs. For more guidance, please refer to:
+            https://cordova.apache.org/docs/en/latest/
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com https://api.openweathermap.org 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/index.css">
+        <title>My Cordova App</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>My Cordova App</h1>
+            
+            <!-- Google Search Form -->
+            <div id="google-search">
+                <form action="https://www.google.com/search" method="get" target="_blank">
+                    <input type="text" name="q" placeholder="Search Google..." required>
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+            
+            <!-- Clock Display -->
+            <div id="clock">
+                <h2>Current Time</h2>
+                <p id="time">Loading time...</p>
+            </div>
+            
+            <!-- Weather Display -->
+            <div id="weather">
+                <h2>Weather</h2>
+                <p id="weather-info">Loading weather...</p>
+            </div>
+        </div>
+        
+        <script src="cordova.js"></script>
+        <script src="js/index.js"></script>
+        
+        <script>
+            // Update the clock every second
+            function updateTime() {
+                var now = new Date();
+                document.getElementById('time').textContent = now.toLocaleTimeString();
+            }
+            setInterval(updateTime, 1000);
+            updateTime();
+            
+            // Fetch current weather using geolocation and OpenWeatherMap API
+            function fetchWeather() {
+                var apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
+                
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var lat = position.coords.latitude;
+                        var lon = position.coords.longitude;
+                        var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat +
+                                  '&lon=' + lon + '&units=metric&appid=' + apiKey;
+                        
+                        fetch(url)
+                            .then(function(response) {
+                                return response.json();
+                            })
+                            .then(function(data) {
+                                var weatherInfo = 'City: ' + data.name + ', Temperature: ' + data.main.temp +
+                                                  ' °C, ' + data.weather[0].description;
+                                document.getElementById('weather-info').textContent = weatherInfo;
+                            })
+                            .catch(function(error) {
+                                document.getElementById('weather-info').textContent = 'Unable to retrieve weather data.';
+                                console.error('Error fetching weather data:', error);
+                            });
+                    }, function(error) {
+                        document.getElementById('weather-info').textContent = 'Unable to retrieve location.';
+                        console.error('Geolocation error:', error);
+                    });
+                } else {
+                    document.getElementById('weather-info').textContent = 'Geolocation not supported.';
+                }
+            }
+            fetchWeather();
+        </script>
+    </body>
+</html>
